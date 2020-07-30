@@ -1,0 +1,89 @@
+Site|Latitude|Longitude
+Ranbaxy Fine Chemicals LTD|28.5303972|77.2347229
+Aurobindo Unit III, India|17.520132|78.3444507
+ABBVIE GmbH & Co.KG Wiesbaden| 50.0587461|8.1771696
+Ranbaxy, Paonta Shahib, India| 30.4280662|75.4424414
+MSD South Granville Australia|-33.845176|150.9829667
+ABBVIE (Abbott) St. P'burg USA| 42.3021242|-87.8937613
+ABBVIE Ludwigshafen Germany|49.4732127|8.4336104
+Trinity Biotech, Plc|53.2573334|-6.769502
+EY Laboratories, USA|37.5752631|-122.5586805
+Cipla, Goa, India|15.323527|73.8587581
+BMS Meymac, France|45.543101|2.1510472
+Premier Med. Corp Ltd. India|18.2321069|72.9625129
+Chembio Diagnostics Sys. Inc.|40.8161375|-72.9674598
+Inverness Japan|35.7325095|139.7276184
+Pacific Biotech, Thailand|13.7740955|100.6013067
+Standard Diagnostics, Korea|37.2480336|127.1015476
+GSK Mississauga (Canada)|43.6159148|-79.7586472
+Gilead(Nycomed) Oranienburg DE|49.8617838|9.3687499
+Bio-Rad Laboratories|50.0539129|8.6867577
+Mylan (formerly Matrix) Nashik|19.899488|73.7086824
+Roche Basel|47.5563722|7.5940887
+GSK Ware (UK)|51.8113459|-0.0392781
+Novartis Pharma AG, Switzerland|47.5361459|7.6199989
+BI, Ingelheim, Germany|49.3013872|6.8439678
+Not Applicable|0.0|0.0
+Ipca Dadra/Nagar Haveli IN|20.2720794|72.9895546
+MSD, Haarlem, NL|52.4232134|4.6777045
+Aspen-OSD, Port Elizabeth, SA|-33.9472238|25.5911236
+ABBVIE (Abbott) Logis. UK|51.511701|-0.7478747
+Gland Pharma Ltd Pally Factory|17.5789321|78.4226206
+GSK Aranda|41.664112|-3.7213827
+Hetero Unit III Hyderabad IN|17.5337781|78.4303687
+ABBVIE (Abbott) France|48.6615498|-3.1801279
+Strides, Bangalore, India.|12.9081329|77.4688952
+ABBSP|41.5141343|12.9367459
+Cipla, Patalganga, India|18.8541733|73.1527987
+GSK Cape Town Factory (South Africa)|-33.9299764|18.5138994
+MSD Midrand, J'burg, SA|-26.0124513|28.1149487
+KHB Test Kit Facility, Shanghai China|31.17676|121.4001903
+bioLytical Laboratories|48.8088298|-122.6170658
+Inverness USA|37.9658402|-88.4241243
+Boehringer Ing., Koropi, GR|37.9272345|23.7291035
+GSK Crawley|50.8325559|-0.365974
+OMEGA Diagnostics, UK|54.2235061|-6.2383902
+Roche Madrid|40.4287446|-3.6152301
+BUNDI INTERNATIONAL DIAGNOSTICS LTD|5.1051809|7.3751216
+INVERNESS ORGENICS LINE|42.3610931|-71.2585685
+Novartis Pharma Suffern, USA|40.8082224|-74.5628131
+Micro Labs Ltd. (Brown & Burk), India|19.111115|72.8878693
+Meditab (for Cipla) Daman IN|19.3087039|72.4283484
+Medopharm Malur Factory, INDIA|12.9825335|77.9202256
+ABBVIE (Abbott) Japan Co. Ltd.|34.773116|135.6355398
+MSD Elkton USA|38.3949774|-78.6696498
+Orasure Technologies, Inc USA|40.6165118|-75.3814473
+Weifa A.S., Hausmanngt. 6, P.O. Box 9113 GrÃ¸nland, 0133, Oslo, Norway|59.9112759|10.8064968
+MSD Manati, Puerto Rico, (USA)|18.1687844|-65.8938175
+MSD Patheon, Canada|45.4550927|-73.8474083
+Emcure Plot No.P-2, I.T-B.T. Park, Phase II, MIDC, Hinjwadi, Pune, India|18.5951176|73.7106977
+Alere Medical Co., Ltd.|40.1994894|-94.141487
+Premier Medical Corporation|38.8941735|-104.2185897
+ABBVIE Labs North Chicago US|42.3362385|-87.8405718
+Janssen-Cilag, Latina, IT|41.4610688|12.9143934
+Aurobindo Unit VII, IN|16.789384|78.0912826
+Micro labs, Verna, Goa, India|15.3637402|73.9487161
+Orasure Technologies, Inc|40.6137926|-75.3812842
+Mylan,  H-12 & H-13, India|17.3570208|78.339272
+Hetero, Jadcherla, unit 5, IN|16.8255743|78.0525807
+Bristol-Myers Squibb Anagni IT|41.6128276|11.8522426
+Cipla Ltd A-42 MIDC Mahar. IN|20.4654477|75.0600411
+Medochemie Factory A, CY|35.0539764|32.7339806
+Boehringer Ingelheim Roxane US|39.9900742|-83.1777769
+BMS Evansville, US|38.0199366|-87.6219096
+GSK, U1, Poznan, Poland|52.3948415|16.8602721
+Janssen Ortho LLC, Puerto Rico|18.207156|-66.0670772
+Micro Labs, Hosur, India|12.7706072|77.8001077
+Remedica, Limassol, Cyprus|36.8500319|29.8058867
+INVERNESS ANY|37.9658402|-88.4241243
+Guilin OSD site, No 17, China|25.286896|110.3073083
+Cipla, Kurkumbh, India|18.403625|74.5134843
+GSK Barnard Castle UK|54.5515837|-1.9229907
+Gland Pharma, Hyderabad, IN|17.4545772|78.2991806
+Access BIO, L.C.|40.4856565|-74.5126163
+Human Diagnostic|50.0418573|8.3503369
+Mepro Pharm Wadhwan Unit II|22.7252166|71.6519864
+Ranbaxy per Shasun Pharma Ltd|18.5373229|76.7780798
+MedMira Inc.|43.9128661|-65.3883217
+Ranbaxy per Shasun Pharma|18.5373229|76.7780798
+Macleods Daman Plant INDIA|20.3287993|72.8701738
