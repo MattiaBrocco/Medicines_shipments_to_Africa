@@ -1,6 +1,7 @@
 # Medicines_shipments_to_Africa
 Comparison of several supervised learning techniques for regression,
 multi-class classification and binary classification from a Kaggle dataset.
+(https://www.kaggle.com/divyeshardeshana/supply-chain-shipment-pricing-data)
 
 I have always been passionate about understanding the dynamics of supply chains, especially
 those that include intermodal transportation and global scales. In Kaggle I found this
