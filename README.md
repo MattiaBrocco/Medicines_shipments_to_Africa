@@ -22,6 +22,6 @@ are produced in India (almost 65% of the instances), and even more important a g
 awareness of how malaria and HIV by 2015 were still diseases that scourge the continent.
 
 
-RMK: the two .txt files have been created manually from maps.google.com coordinates,
+_*RMK*_: the two `.txt` files have been created manually from maps.google.com coordinates,
 because this seemed the most logical way to exploit the information of the columns
 of Country of destination and Manufacturing Site (after an API caller failed to work).
