@@ -84,6 +84,8 @@ def cleaning_input(data):
                    man_site[["Latitude", "Longitude"]].values.tolist()))
 
     data["Manufacturing Site Coords"] = data["Manufacturing Site"].map(dms)
+    data["Manufacturing Site LATITUDE"] = data["Manufacturing Site Coords"].apply(lambda v: v[0])
+    data["Manufacturing Site LONGITUDE"] = data["Manufacturing Site Coords"].apply(lambda v: v[1])
 
     # Country
     coun_coord = pd.read_table("country_loc.txt", sep = "|")
@@ -91,6 +93,9 @@ def cleaning_input(data):
                    coun_coord[["Latitude", "Longitude"]].values.tolist()))
 
     data["Country Coords"] = data["Country"].map(dcc)
+    data["Country Coords LATITUDE"] = data["Country Coords"].apply(lambda v: v[0])
+    data["Country Coords LONGITUDE"] = data["Country Coords"].apply(lambda v: v[1])
+    
 
     # New col: Distance
     data["Distance Manuf Dest"] = data.apply(lambda row:
@@ -102,18 +107,24 @@ def cleaning_input(data):
     if sum(data["Managed By"].value_counts()/len(data) > .99) > 0:
         data = data.drop("Managed By", axis = 1)
     
+    
+    data = data.drop(["Country Coords", "Manufacturing Site Coords"], axis = 1)
+    
     return data
 
 
 
-def preprocessing_for_ml(data_in):
+def preprocessing_for_ml(data_in, skip_shipment_mode = False):
     
     data = data_in.copy()
     
     ### Dummy Encoding
     # Shipment Mode
-    data = pd.concat([data.drop("Shipment Mode", axis = 1),
-                      pd.get_dummies(data["Shipment Mode"], drop_first = True)], axis = 1)
+    if skip_shipment_mode == False:
+        data = pd.concat([data.drop("Shipment Mode", axis = 1),
+                          pd.get_dummies(data["Shipment Mode"],
+                                         drop_first = True)], axis = 1)
+    
     # Fulfill Via
     data = pd.concat([data.drop("Fulfill Via", axis = 1),
                       pd.get_dummies(data["Fulfill Via"], drop_first = True)], axis = 1)
@@ -142,72 +153,40 @@ def preprocessing_for_ml(data_in):
     
     # DROP ALL NON-NUMERIC COLUMNS
     # Related to geographic data
-    data = data.drop(["Manufacturing Site", "Country",
-                      "Manufacturing Site Coords", "Country Coords"], axis = 1)
+    #Latitude is specified in degrees within the range [-90, 90].
+    # Longitude is specified in degrees within the range [-180, 180).
+    data["Manufacturing Site LATITUDE"] = pd.cut(data["Manufacturing Site LATITUDE"], np.arange(-90, 91))
+    data["Manufacturing Site LONGITUDE"] = pd.cut(data["Manufacturing Site LONGITUDE"], np.arange(-180, 180))
+    
+    data["Country Coords LATITUDE"] = pd.cut(data["Country Coords LATITUDE"], np.arange(-90, 91))
+    data["Country Coords LONGITUDE"] = pd.cut(data["Country Coords LONGITUDE"], np.arange(-180, 180))
+    
+    data = pd.concat([data.drop("Manufacturing Site LATITUDE", axis = 1),
+                      pd.get_dummies(data["Manufacturing Site LATITUDE"],
+                                     drop_first = True, prefix = "Manuf_LAT")], axis = 1)
+    data = pd.concat([data.drop("Manufacturing Site LONGITUDE", axis = 1),
+                      pd.get_dummies(data["Manufacturing Site LONGITUDE"],
+                                     drop_first = True, prefix = "Manuf_LONG")], axis = 1)
+    data = pd.concat([data.drop("Country Coords LATITUDE", axis = 1),
+                      pd.get_dummies(data["Country Coords LATITUDE"],
+                                     drop_first = True, prefix = "Country_LAT")], axis = 1)
+    data = pd.concat([data.drop("Country Coords LONGITUDE", axis = 1),
+                      pd.get_dummies(data["Country Coords LONGITUDE"],
+                                     drop_first = True, prefix = "Country_LONG")], axis = 1)    
+    
+    data = data.drop(["Manufacturing Site", "Country"], axis = 1)    
+    
     # Time data
     data = data.drop(["Scheduled Delivery Date", "Delivered to Client Date",
                       "Delivery Recorded Date"], axis = 1)
+    
+    
+    data = pd.concat([data.drop("Scheduled Delivery MONTH", axis = 1),
+                      pd.get_dummies(data["Scheduled Delivery MONTH"],
+                                     drop_first = True, prefix = "Delivery_Month")], axis = 1)
+    
     # Drop some columns (mainly textual attributes of the transaction/prodcut)
-    # 'Line Item Insurance (USD)'' is removed as it is highly
-    # correlated with 'Line Item Value' (r = .96)
-    # 'Product Group' is highly correlated (via contingency table)
-    # with 'Sub Classification'
-    data = data.drop(["ID", "Item Description", "PQ #", "ASN/DN #", "PO / SO #", "Dosage",
-                      "Line Item Insurance (USD)", "Molecule/Test Type", "Project Code",
-                      "PQ First Sent to Client Date", "PO Sent to Vendor Date",
-                      "Product Group",
-                      # Text columns
-                      "Vendor INCO Term", "Vendor", "Brand"], axis = 1)    
-    
-    # DROP ALL ROWS WITH NAN VALUES
-    data = data.dropna().reset_index(drop = True)
-    
-    return data
-
-
-def preprocessing_for_classification(data_in):
-    """
-    Same function as 'preprocessing_for_ml', without
-    the dummy encoding of 'Shipment Mode'.
-    """
-    data = data_in.copy()
-    
-    ### Dummy Encoding
-    # Fulfill Via
-    data = pd.concat([data.drop("Fulfill Via", axis = 1),
-                      pd.get_dummies(data["Fulfill Via"], drop_first = True)], axis = 1)
-
-    # Managed by
-    if "Managed By" in data.columns:
-        data["Managed By"] = data["Managed By"].apply(lambda s: 1 if s == "PMO - US" else 0)
-        data = data.rename(columns = {"Managed By": "PMO - US Managed"})
-
-    # First Line Designation
-    data["First Line Designation"] = data["First Line Designation"].map({"Yes": 1, "No": 0})
-
-    # Dosage Form
-    # NOTE: grouping is done without any prior domain knowledge
-    data["Dosage Form"] = data["Dosage Form"].apply(lambda s: "Tablet" if "tablet" in s.lower()
-                                                    else "Powder" if "powder" in s.lower()
-                                                    else "Capsule" if "capsule" in s.lower()
-                                                    else "Test kit" if "test kit" in s.lower()
-                                                    else s)
-    data = pd.concat([data.drop("Dosage Form", axis = 1),
-                      pd.get_dummies(data["Dosage Form"], drop_first = True)], axis = 1)
-
-    # Sub Classification
-    data = pd.concat([data.drop("Sub Classification", axis = 1),
-                      pd.get_dummies(data["Sub Classification"], drop_first = True)], axis = 1)
-    
-    # DROP ALL NON-NUMERIC COLUMNS
-    # Related to geographic data
-    data = data.drop(["Manufacturing Site", "Country",
-                      "Manufacturing Site Coords", "Country Coords"], axis = 1)
-    # Time data
-    data = data.drop(["Scheduled Delivery Date", "Delivered to Client Date",
-                      "Delivery Recorded Date"], axis = 1)
-    # Drop some columns (mainly textual attributes of the transaction/prodcut)
-    # 'Line Item Insurance (USD)'' is removed as it is highly
+    # 'Line Item Insurance (USD)' is removed as it is highly
     # correlated with 'Line Item Value' (r = .96)
     # 'Product Group' is highly correlated (via contingency table)
     # with 'Sub Classification'
