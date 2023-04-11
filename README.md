@@ -1,13 +1,18 @@
 # Medicines shipments to Africa
-Comparison of several supervised learning techniques for regression,
-multi-class classification and binary classification from a Kaggle dataset.
-(https://www.kaggle.com/divyeshardeshana/supply-chain-shipment-pricing-data)
+Comparison of several supervised learning techniques for regression, and multi-class classification from a [Kaggle dataset](https://www.kaggle.com/divyeshardeshana/supply-chain-shipment-pricing-data)
 
-I have always been passionate about understanding the dynamics of supply chains, especially
-those that include intermodal transportation and global scales. In Kaggle I found this
-dataset on shipments to different countries in Africa, which gave me the opportunity to try
-and exploit different techniques especially with regard to the cleaning and arrangement
-of data for the prediction of different aspects separately (supervised learning).
+Classification entails the prediction of the *Shipment Mode*, while regression regards *Price* prediction.
+
+Best performance on classification is $0.91$ accuracy, while for regression a $29.8%$ MAPE.
+
+Moreover, coming from the insights found while writing my Bachelor Thesis on Price Optimization following the [Pricing and Revenue Optimization](https://www.sup.org/books/title/?id=31628) (R. Philips, 2006), I have tried to implement the same logics for this problem.
+
+Using non-detrimental pricing strategy, where the price resulting from the optimization procedure (`PRO_approach.py`) is the maximum value between the "optimal" price and the 75th percentile of past prices, I have obtained a revenue increase of $18%$.
+
+An example is shown below, where we see the data points, their interpolation via non-linear least squares with a prior of a logit function, and the derivative of the latter function (a bell-shaped curve). Finally, the new price point is the value that maximizes that derivative.
+
+![image](https://user-images.githubusercontent.com/61026948/231292473-c83493dc-3f03-4340-b1d6-99812e6e16f2.png)
+
 
 The choice of the topic made me understand, above all to gain
 "domain knowledge" useful to understand how to handle the data at hand,
