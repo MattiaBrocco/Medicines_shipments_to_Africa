@@ -17,8 +17,11 @@ def revenue_optimization(data, sku, plot = False):
                              (data["Unit Price"] >= p)])
                     for p in price_range]
     
+    # Not enough values OR all equal values
     if len(data[(data["PO / SO #"] == sku) &
-                (data["Unit Price"] > 0)]) >= 3:
+                (data["Unit Price"] > 0)]) >= 3\
+    and len(data[(data["PO / SO #"] == sku) &
+                (data["Unit Price"] > 0)]["Unit Price"].unique()) > 3:
     
         try:
             logit = lambda x, a, b, c: c*(np.exp(-a-b*x))/(1+np.exp(-a-b*x))
@@ -65,7 +68,7 @@ def revenue_optimization(data, sku, plot = False):
         
             return price_range, price_range, optimal_price, [0, 0, 0]
     else:
-        print("Less than 3")
+        #print("Less than 3")
         optimal_price = np.mean(data[(data["PO / SO #"] == sku) &
                                      (data["Unit Price"] > 0)]["Unit Price"])
         return price_range, price_range, optimal_price, [0, 0, 0]

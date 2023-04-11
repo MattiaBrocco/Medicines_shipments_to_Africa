@@ -155,11 +155,11 @@ def preprocessing_for_ml(data_in, skip_shipment_mode = False):
     # Related to geographic data
     #Latitude is specified in degrees within the range [-90, 90].
     # Longitude is specified in degrees within the range [-180, 180).
-    data["Manufacturing Site LATITUDE"] = pd.cut(data["Manufacturing Site LATITUDE"], np.arange(-90, 91))
-    data["Manufacturing Site LONGITUDE"] = pd.cut(data["Manufacturing Site LONGITUDE"], np.arange(-180, 180))
+    data["Manufacturing Site LATITUDE"] = pd.cut(data["Manufacturing Site LATITUDE"], np.arange(-90, 91, 10))
+    data["Manufacturing Site LONGITUDE"] = pd.cut(data["Manufacturing Site LONGITUDE"], np.arange(-180, 180, 10))
     
-    data["Country Coords LATITUDE"] = pd.cut(data["Country Coords LATITUDE"], np.arange(-90, 91))
-    data["Country Coords LONGITUDE"] = pd.cut(data["Country Coords LONGITUDE"], np.arange(-180, 180))
+    data["Country Coords LATITUDE"] = pd.cut(data["Country Coords LATITUDE"], np.arange(-90, 91, 10))
+    data["Country Coords LONGITUDE"] = pd.cut(data["Country Coords LONGITUDE"], np.arange(-180, 180, 10))
     
     data = pd.concat([data.drop("Manufacturing Site LATITUDE", axis = 1),
                       pd.get_dummies(data["Manufacturing Site LATITUDE"],
@@ -174,7 +174,7 @@ def preprocessing_for_ml(data_in, skip_shipment_mode = False):
                       pd.get_dummies(data["Country Coords LONGITUDE"],
                                      drop_first = True, prefix = "Country_LONG")], axis = 1)    
     
-    data = data.drop(["Manufacturing Site", "Country"], axis = 1)    
+    data = data.drop(["Manufacturing Site", "Country"], axis = 1)
     
     # Time data
     data = data.drop(["Scheduled Delivery Date", "Delivered to Client Date",
@@ -185,17 +185,22 @@ def preprocessing_for_ml(data_in, skip_shipment_mode = False):
                       pd.get_dummies(data["Scheduled Delivery MONTH"],
                                      drop_first = True, prefix = "Delivery_Month")], axis = 1)
     
+    # INCO Terms
+    data = pd.concat([data.drop("Vendor INCO Term", axis = 1),
+                      pd.get_dummies(data["Vendor INCO Term"],
+                                     drop_first = True, prefix = "INCO")], axis = 1)
+    
     # Drop some columns (mainly textual attributes of the transaction/prodcut)
     # 'Line Item Insurance (USD)' is removed as it is highly
     # correlated with 'Line Item Value' (r = .96)
     # 'Product Group' is highly correlated (via contingency table)
     # with 'Sub Classification'
     data = data.drop(["ID", "Item Description", "PQ #", "ASN/DN #", "PO / SO #", "Dosage",
-                      "Line Item Insurance (USD)", "Molecule/Test Type", "Project Code",
+                      "Line Item Value", "Molecule/Test Type", "Project Code",
                       "PQ First Sent to Client Date", "PO Sent to Vendor Date",
                       "Product Group",
-                      # Text columns
-                      "Vendor INCO Term", "Vendor", "Brand"], axis = 1)    
+                      #"Vendor INCO Term",
+                      "Vendor", "Brand"], axis = 1)
     
     # DROP ALL ROWS WITH NAN VALUES
     data = data.dropna().reset_index(drop = True)
